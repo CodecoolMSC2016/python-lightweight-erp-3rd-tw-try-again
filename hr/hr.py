@@ -23,9 +23,36 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 #
 def start_module():
 
-    # you code
+    inputs = ui.get_inputs(["Please enter a number: "], "")
+    option = inputs[0]
+    if option == "1":
+        choose.start_module()
+    elif option == "2":
+        show_table.start_module()
+    elif option == "3":
+        add.start_module()
+    elif option == "4":
+        remove.start_module()
+    elif option == "5":
+        update.start_module()
+    elif option == "6":
+        get_oldest_person.start_module()
+    elif option == "6":
+        get_persons_closest_to_average.start_module()
+    elif option == "0":
+        sys.exit(0)
+    else:
+        raise KeyError("There is no such option.")
 
-    pass
+def handle_menu():
+    options = ["Show Table",
+               "Add",
+               "Remove",
+               "Update",
+               "Get Oldest Person",
+               "Get Person Closest To Average",]
+
+    ui.print_menu("Main menu", options, "Exit program")
 
 
 # print the default table of records from the file
@@ -33,7 +60,7 @@ def start_module():
 # @table: list of lists
 def show_table(table):
 
-    # your code
+    from ui import print_table
 
     pass
 
@@ -42,8 +69,8 @@ def show_table(table):
 #
 # @table: list of lists
 def add(table):
-
-    # your code
+    x = input("Give me what you want to add: ")
+    append.table(x)
 
     return table
 
@@ -53,8 +80,8 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
-
-    # your code
+    y = input("Give me what you want to remove: ")
+    remove.table(y)
 
     return table
 
