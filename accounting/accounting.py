@@ -26,16 +26,16 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 #
 def start_module():
 
-    title_list = ['id', 'month', 'day', 'year', 'type', 'amount']
+    title_str = "<id> <month> <day> <year> <type> <amount>"
+    table = data_manager.get_table_from_file(r"accounting/items.csv")
     while True:
-        table = data_manager.get_table_from_file(r"accounting/items.csv")
         handle_menu()
         inputs = ui.get_inputs("Please enter a number: ", "")
         option = inputs[0]
         if option == "1":
-            show_table(table, title_list)
+            show_table(table, title_str)
         elif option == "2":
-            add(table)
+            add(table, title_str)
         elif option == "3":
             id = input("Enter an ID: ")
             remove(table, id)
@@ -65,18 +65,17 @@ def handle_menu():
 # print the default table of records from the file
 #
 # @table: list of lists
-def show_table(table, title_list):
-
-    ui.print_table(table, title_list)
+def show_table(table, title_str):
+    ui.print_table(table, title_str)
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
 #
 # @table: list of lists
-def add(table):
-
-    # your code
-
+def add(table, title_str):
+    result = ui.get_inputs("Enter the records to be added (seperated by space): ", title_str)
+    table.append((common.generate_random(table) + " " + result).split())
+    data_manager.write_table_to_file("accounting/items.csv", table)
     return table
 
 
