@@ -1,5 +1,3 @@
-
-
 # This function needs to print outputs like this:
 # /-----------------------------------\
 # |   id   |      title     |  type   |
@@ -11,11 +9,11 @@
 #
 # @table: list of lists - the table to print out
 # @title_list: list of strings - the head of the table
+
+
 def print_table(table, title_list):
-
-    # your code
-
-    pass
+    for line in table:
+        print(line)
 
 
 # This function needs to print result of the special functions
@@ -23,10 +21,7 @@ def print_table(table, title_list):
 # @result: string or list or dictionary - result of the special function
 # @label: string - label of the result
 def print_result(result, label):
-
-    # your code
-
-    pass
+    print("result: {} label: {}" .format(result, label))
 
 
 # This function needs to generate outputs like this:
@@ -43,10 +38,10 @@ def print_result(result, label):
 # @list_options: list of strings - the options in the menu
 # @exit_message: string - the last option with (0) (example: "Back to main menu")
 def print_menu(title, list_options, exit_message):
-
-    # your code
-
-    pass
+    print(title)
+    for option_index in range(len(list_options)):
+        print("({}) {}" .format(option_index + 1, list_options[option_index]))
+    print("(0) {}" .format(exit_message))
 
 
 # This function gets a list of inputs from the user by the terminal
@@ -55,10 +50,8 @@ def print_menu(title, list_options, exit_message):
 # @title: string - title of the "input section"
 # @inputs: list of string - list of the received values from the user
 def get_inputs(list_labels, title):
-    inputs = []
-
-    # your code
-
+    print(list_labels)
+    inputs = input()
     return inputs
 
 

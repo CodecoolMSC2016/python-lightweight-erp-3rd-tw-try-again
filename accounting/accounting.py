@@ -26,19 +26,48 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 #
 def start_module():
 
-    # you code
+    title_list = ['id', 'month', 'day', 'year', 'type', 'amount']
+    while True:
+        table = data_manager.get_table_from_file(r"accounting/items.csv")
+        handle_menu()
+        inputs = ui.get_inputs("Please enter a number: ", "")
+        option = inputs[0]
+        if option == "1":
+            show_table(table, title_list)
+        elif option == "2":
+            add(table)
+        elif option == "3":
+            id = input("Enter an ID: ")
+            remove(table, id)
+        elif option == "4":
+            update(table, id)
+        elif option == "5":
+            which_year_max(table)
+        elif option == "6":
+            avg_amount(table, year)
+        elif option == "0":
+            break
+        else:
+            raise KeyError("There is no such option.")
 
-    pass
+
+def handle_menu():
+    options = ["Show Table",
+               "Add to Table",
+               "Remove from Table",
+               "Update Table",
+               "Get max year",
+               "Get avg amount"]
+
+    ui.print_menu("Accounting", options, "Returning to Main Menu")
 
 
 # print the default table of records from the file
 #
 # @table: list of lists
-def show_table(table):
+def show_table(table, title_list):
 
-    # your code
-
-    pass
+    ui.print_table(table, title_list)
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
