@@ -37,10 +37,11 @@ def start_module():
         elif option == "2":
             add(table, title_str)
         elif option == "3":
-            id = input("Enter an ID: ")
-            remove(table, id)
+            id_ = ui.get_inputs("Enter a valid ID: ")
+            remove(table, id_)
         elif option == "4":
-            update(table, id)
+            id_ = ui.get_inputs("Enter a valid ID: ")
+            update(table, id_)
         elif option == "5":
             which_year_max(table)
         elif option == "6":
@@ -84,9 +85,10 @@ def add(table, title_str):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
-
-    # your code
-
+    for line in table:
+        if line[0] == id_:
+            table.remove(line)
+    data_manager.write_table_to_file("accounting/items.csv", table)
     return table
 
 
@@ -96,9 +98,13 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
-
-    # your code
-
+    for line_index in range(len(table)):
+        if table[line_index][0] == id_:
+            new_datas = ui.get_inputs("Enter new data(seperated by space): ").split()
+            table[line_index] = [id_]
+            for data in new_datas:
+                table[line_index].append(data)
+    data_manager.write_table_to_file("accounting/items.csv", table)
     return table
 
 
@@ -108,8 +114,6 @@ def update(table, id_):
 # the question: Which year has the highest profit? (profit=in-out)
 # return the answer (number)
 def which_year_max(table):
-
-    # your code
 
     pass
 
