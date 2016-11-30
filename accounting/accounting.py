@@ -101,7 +101,7 @@ def remove(table, id_):
 def update(table, id_):
     for line_index in range(len(table)):
         if table[line_index][0] == id_:
-            new_datas = ui.get_inputs("Enter new data(seperated by space): ").split()
+            new_datas = ui.get_inputs("Enter new data(separated by space): ").split()
             table[line_index] = [id_]
             for data in new_datas:
                 table[line_index].append(data)
@@ -131,4 +131,4 @@ def avg_amount(table, year):
         return ui.print_result("Year not found. ")
     for amount in amount_list:
         result += int(amount)
-    ui.print_result(result / len(amount_list), "Avarage profit in " + str(year))
+    ui.print_result(result / len(amount_list), "Average profit in " + str(year))
