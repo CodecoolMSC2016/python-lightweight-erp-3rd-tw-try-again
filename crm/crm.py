@@ -23,20 +23,48 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
+    title_list = ['ID', 'NAME', 'E-MAIL', 'SUBSCRIBED']
+    while True:
+        table = data_manager.get_table_from_file(r"crm/customers.csv")
+        handle_menu()
+        inputs = ui.get_inputs(["Please enter a number: "], "")
+        option = inputs[0]
+        if option == "1":
+            show_table(table, title_list)
+        elif option == "2":
+            add(table)
+        elif option == "3":
+            id = input("Enter an ID: ")
+            remove(table, id_)
+        elif option == "4":
+            update(table, id_)
+        elif option == "5":
+            get_longest_name_id(table)
+        elif option == "6":
+            get_subscribed_emails(table)
+        elif option == "0":
+            break
+        else:
+            raise KeyError("There is no such option.")
+    
 
-    # you code
+def handle_menu():
+    options = ["Show Table",
+            "Add to Table",
+            "Remove from Table",
+            "Update Table",
+            "Longest name",
+            "Newsletter subscribers"]
 
-    pass
-
+    ui.print_menu("Customer Relationship Management (CRM)", options, "Returning to Main menu")
 
 # print the default table of records from the file
 #
 # @table: list of lists
-def show_table(table):
 
-    # your code
+def show_table(table, title_list):
 
-    pass
+    ui.print_table(table, title_list)
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
@@ -44,7 +72,7 @@ def show_table(table):
 # @table: list of lists
 def add(table):
 
-    # your code
+    ui.get_inputs(list_labels, title)
 
     return table
 
@@ -92,3 +120,4 @@ def get_subscribed_emails(table):
     # your code
 
     pass
+
