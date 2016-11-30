@@ -22,7 +22,8 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
-
+    handle_menu()
+    table = data_manager.get_table_from_file(r"hr/persons.csv")
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
     if option == "1":
@@ -40,7 +41,7 @@ def start_module():
     elif option == "6":
         get_persons_closest_to_average(table)
     elif option == "0":
-        main.choose()
+        pass
     else:
         raise KeyError("There is no such option.")
 
@@ -59,12 +60,7 @@ def handle_menu():
 #
 # @table: list of lists
 def show_table(table):
-
     ui.print_table(table)
-
-    return table
-
-
 # Ask a new record as an input from the user than add it to @table, than return @table
 #
 # @table: list of lists
