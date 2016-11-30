@@ -26,21 +26,21 @@ def start_module():
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
     if option == "1":
-        choose.start_module()
+        show_table(table)
     elif option == "2":
-        show_table.start_module()
+        add(table)
     elif option == "3":
-        add.start_module()
+        remove(table, id_)
     elif option == "4":
-        remove.start_module()
+        update(table, id_)
     elif option == "5":
-        update.start_module()
+        update(table, id_)
     elif option == "6":
-        get_oldest_person.start_module()
+        get_oldest_person(table)
     elif option == "6":
-        get_persons_closest_to_average.start_module()
+        get_persons_closest_to_average(table)
     elif option == "0":
-        sys.exit(0)
+        main.choose()
     else:
         raise KeyError("There is no such option.")
 
@@ -52,7 +52,7 @@ def handle_menu():
                "Get Oldest Person",
                "Get Person Closest To Average",]
 
-    ui.print_menu("Main menu", options, "Exit program")
+    ui.print_menu("Human Resources", options, "Back To Main Menu")
 
 
 # print the default table of records from the file
@@ -60,17 +60,17 @@ def handle_menu():
 # @table: list of lists
 def show_table(table):
 
-    from ui import print_table
+    ui.print_table(table)
 
-    pass
+    return table
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
 #
 # @table: list of lists
 def add(table):
-    x = input("Give me what you want to add: ")
-    append.table(x)
+    ui.get_inputs()
+    append.table(get_inputs)
 
     return table
 
@@ -80,8 +80,8 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
-    y = input("Give me what you want to remove: ")
-    remove.table(y)
+    from ui import get_inputs
+    remove.table(get_inputs)
 
     return table
 
@@ -93,7 +93,7 @@ def remove(table, id_):
 # @id_: string
 def update(table, id_):
 
-    # your code
+    
 
     return table
 
@@ -105,15 +105,27 @@ def update(table, id_):
 # return type: list of strings (name or names if there are two more with the same value)
 def get_oldest_person(table):
 
-    # your code
+    import csv
+    with open('persons.csv', 'r') as csvfile:
+        for lines in csvfile:
+            parts=lines.split(";")
+            oldest=parts[0]
+            if int(oldest[2])<int(parts[2]):
+                oldest= parts
+            if oldest==int(parts[2]):
+                print(oldest[1])
 
-    pass
 
 
 # the question: Who is the closest to the average age ?
 # return type: list of strings (name or names if there are two more with the same value)
 def get_persons_closest_to_average(table):
 
-    # your code
-
-    pass
+    import csv
+    with open('persons.csv', 'r') as csvfile:
+        for lines in csvfile:
+            parts=lines.split(";")
+            average=0
+            for n in int(parts[2]):
+                pass
+                

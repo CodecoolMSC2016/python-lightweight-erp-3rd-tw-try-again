@@ -25,9 +25,36 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 #
 def start_module():
 
-    # you code
+    inputs = ui.get_inputs(["Please enter a number: "], "")
+    option = inputs[0]
+    if option == "1":
+        show_table(table)
+    elif option == "2":
+        add(table)
+    elif option == "3":
+        remove(table, id_)
+    elif option == "4":
+        update(table, id_)
+    elif option == "5":
+        update(table, id_)
+    elif option == "6":
+        get_available_tools(table)
+    elif option == "6":
+        get_average_durability_by_manufacturers(table)
+    elif option == "0":
+        main.choose()
+    else:
+        raise KeyError("There is no such option.")
 
-    pass
+def handle_menu():
+    options = ["Show Table",
+               "Add",
+               "Remove",
+               "Update",
+               "Get Available Tools",
+               "Get Average Durability",]
+
+    ui.print_menu("Tool Manager", options, "Back To Main Menu")
 
 
 # print the default table of records from the file
@@ -35,9 +62,9 @@ def start_module():
 # @table: list of lists
 def show_table(table):
 
-    # your code
+    from ui import print_table
 
-    pass
+    return print_table
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
@@ -45,7 +72,8 @@ def show_table(table):
 # @table: list of lists
 def add(table):
 
-    # your code
+    from ui import get_inputs
+    append.table(get_inputs)
 
     return table
 
