@@ -26,7 +26,7 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 #
 def start_module():
 
-    title_str = "<id> <month> <day> <year> <type> <amount>"
+    title_str = "id month day year type amount"
     table = data_manager.get_table_from_file(r"accounting/items.csv")
     while True:
         handle_menu()
