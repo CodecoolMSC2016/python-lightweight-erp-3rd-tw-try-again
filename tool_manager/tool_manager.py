@@ -24,23 +24,23 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
-    title_str = "<id> <month> <day> <year> <type> <amount>"
+    title_list = "<id> <name> <manufacturer> <purchase_date> <durability>"
     table = data_manager.get_table_from_file(r"tool_manager/tools.csv")
     while True:
         handle_menu()   
         inputs = ui.get_inputs(["Please enter a number: "], "")
         option = inputs[0]
         if option == "1":
-                show_table(table, title_str)
+                show_table(table, title_list)
         elif option == "2":
-            add(table, title_str)
+            add(table, title_list)
         elif option == "3":
             id_ = ui.get_inputs("Enter a valid ID: ", "")
             remove(table, id_)
         elif option == "4":
             id_ = ui.get_inputs("Enter a valid ID: ", "")
             update(table, id_)
-        elif option == "6":
+        elif option == "5":
             get_available_tools(table)
         elif option == "6":
             get_average_durability_by_manufacturers(table)
@@ -63,16 +63,16 @@ def handle_menu():
 # print the default table of records from the file
 #
 # @table: list of lists
-def show_table(table,title_str):
+def show_table(table,title_list):
 
-    ui.print_table(table, title_str)
+    ui.print_table(table, title_list)
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
 #
 # @table: list of lists
-def add(table, title_str):
-    result = ui.get_inputs("Enter the records to be added (seperated by space): ", title_str)
+def add(table, title_list):
+    result = ui.get_inputs("Enter the records to be added (seperated by space): ", title_list)
     table.append((common.generate_random(table) + " " + result).split())
     data_manager.write_table_to_file("tool_manager/tools.csv", table)
     return table
@@ -84,7 +84,6 @@ def add(table, title_str):
 # @id_: string
 def remove(table, id_):
     for line in table:
-        id_ = title_str[0]
         if line[0] == id_:
             table.remove(line)
     data_manager.write_table_to_file("tool_manager/tools.csv", table)
@@ -116,9 +115,11 @@ def update(table, id_):
 # @table: list of lists
 def get_available_tools(table):
 
-    # your code
-
-    pass
+    for line in table:
+        dur = line[4]
+        purc= line[3]
+        if 2016<=int(purc)+int(dur):
+            ui.print_result(line[1], "The item that didn't exceed it's durability' is: ")
 
 
 # the question: What are the average durability time for each manufacturer?
@@ -127,6 +128,12 @@ def get_available_tools(table):
 # @table: list of lists
 def get_average_durability_by_manufacturers(table):
 
-    # your code
+    manuf_dict={}
+    for line in table:
+        if line[2] in manuf_dict:
+            manuf_dict[line[2]]+=int(line[4])
+        else:
+            manuf_dict[line[2]]=int(line[4])
+    for 
+    average=dur_max / len(table)
 
-    pass

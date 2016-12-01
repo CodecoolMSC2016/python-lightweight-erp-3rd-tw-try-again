@@ -22,14 +22,14 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
-    title_str = "<id> <month> <day> <year> <type> <amount>"
+    title_list = "<id> <name> <birth_date>"
     table = data_manager.get_table_from_file(r"hr/persons.csv")
     while True:
         handle_menu()
         inputs = ui.get_inputs(["Please enter a number: "], "")
         option = inputs[0]
         if option == "1":
-                show_table(table, title_str)
+                show_table(table, title_list)
         elif option == "2":
             add(table, title_str)
         elif option == "3":
@@ -62,13 +62,13 @@ def handle_menu():
 # print the default table of records from the file
 #
 # @table: list of lists
-def show_table(table, title_str):
-    ui.print_table(table, title_str)
+def show_table(table, title_list):
+    ui.print_table(table, title_list)
 # Ask a new record as an input from the user than add it to @table, than return @table
 #
 # @table: list of lists
-def add(table, title_str):
-    result = ui.get_inputs("Enter the records to be added (seperated by space): ", title_str)
+def add(table, title_list):
+    result = ui.get_inputs("Enter the records to be added (seperated by space): ", title_list)
     table.append((common.generate_random(table) + " " + result).split())
     data_manager.write_table_to_file("hr/persons.csv", table)
     return table
