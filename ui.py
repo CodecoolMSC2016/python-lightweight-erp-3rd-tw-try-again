@@ -24,7 +24,7 @@ def print_table(table, title_list):
         padding_length[column_index] = max
         max = 0
     length_list = [padding_length[key] for key in padding_length]
-    line_length = 5
+    line_length = len(table[0]) + len(table[0]) - 1
     for length in length_list:
         line_length += length
 
@@ -32,7 +32,7 @@ def print_table(table, title_list):
     print("|" + "-" * line_length + "|")
     for line in table:
         for data_index in range(len(line)):
-            print("|" + line[data_index].rjust(padding_length[data_index]), end='')
+            print("|" + line[data_index].rjust(padding_length[data_index] + 1), end='')
         print("|")
         print("|" + "-" * line_length + "|")
     print("\\" + "-" * line_length + "/")
