@@ -29,7 +29,7 @@ def start_module():
         inputs = ui.get_inputs(["Please enter a number: "], "")
         option = inputs[0]
         if option == "1":
-                show_table(table, title_list)
+            show_table(table, title_list)
         elif option == "2":
             add(table, title_str)
         elif option == "3":
@@ -41,12 +41,13 @@ def start_module():
         elif option == "5":
             get_oldest_person(table)
         elif option == "6":
-            names=get_persons_closest_to_average(table)
+            names = get_persons_closest_to_average(table)
             ui.print_result(names, "The people closest to the average:")
         elif option == "0":
             break
         else:
             raise KeyError("There is no such option.")
+
 
 def handle_menu():
     options = ["Show Table",
@@ -54,7 +55,7 @@ def handle_menu():
                "Remove",
                "Update",
                "Get Oldest Person",
-               "Get Person Closest To Average",]
+               "Get Person Closest To Average", ]
 
     ui.print_menu("Human Resources", options, "Back To Main Menu")
 
@@ -67,6 +68,8 @@ def show_table(table, title_list):
 # Ask a new record as an input from the user than add it to @table, than return @table
 #
 # @table: list of lists
+
+
 def add(table, title_list):
     result = ui.get_inputs("Enter the records to be added (seperated by space): ", title_list)
     table.append((common.generate_random(table) + " " + result).split())
@@ -111,17 +114,19 @@ def update(table, id_):
 def get_oldest_person(table):
 
     #min = table[0]
-    #for line in table:
-        #if int(line[2]) < int(min[2]):
+    # for line in table:
+        # if int(line[2]) < int(min[2]):
            # min += line
-    min=999999999999
+    min = 999999999999
     for i in range(len(table)):
-        if int(table[i][2])<min:
-            min=int(table[i][2])
+        if int(table[i][2]) < min:
+            min = int(table[i][2])
+    result = []
     for i in table:
         if int(i[2]) == min:
             ui.print_result(i[1], "The oldest person is: ")
-
+            result.append(i[1])
+    return result
 
 
 # the question: Who is the closest to the average age ?
@@ -129,30 +134,27 @@ def get_oldest_person(table):
 def get_persons_closest_to_average(table):
 
     #import csv
-    #with open('persons.csv', 'r') as csvfile:
-        #for lines in csvfile:
-            #parts=lines.split(";")
-            #average=0
-            #for n in int(parts[2]):
-                #pass
+    # with open('persons.csv', 'r') as csvfile:
+        # for lines in csvfile:
+            # parts=lines.split(";")
+            # average=0
+            # for n in int(parts[2]):
+                # pass
 
     result = 0
     for line in table:
         amount = line[2]
         result += int(amount)
-    average=result / len(table)
-    min_diff=None
-    min_names=[]
+    average = result / len(table)
+    min_diff = None
+    min_names = []
     for line in table:
-         diff=abs(int(line[2])-average)
-         if min_diff==None or min_diff>diff:
-             min_diff=diff
-             min_names.clear()
-             min_names.append(line[1])
-         elif min_diff==None or min_diff==diff:
-             min_diff=diff
-             min_names.append(line[1])
+        diff = abs(int(line[2]) - average)
+        if min_diff == None or min_diff > diff:
+            min_diff = diff
+            min_names.clear()
+            min_names.append(line[1])
+        elif min_diff == None or min_diff == diff:
+            min_diff = diff
+            min_names.append(line[1])
     return min_names
-         
-
-                

@@ -14,7 +14,6 @@
 def print_table(table, title_list):
     padding_length = {}
     max = 0
-    print(title_list)
     table.append(title_list.split())
     table[-1], table[0] = table[0], table[-1]
     for column_index in range(len(table[0])):
@@ -27,15 +26,16 @@ def print_table(table, title_list):
     line_length = len(table[0]) + len(table[0]) - 1
     for length in length_list:
         line_length += length
-
     print("/" + "-" * line_length + "\\")
     print("|" + "-" * line_length + "|")
+
     for line in table:
         for data_index in range(len(line)):
             print("|" + line[data_index].rjust(padding_length[data_index] + 1), end='')
         print("|")
         print("|" + "-" * line_length + "|")
     print("\\" + "-" * line_length + "/")
+    table.pop(0)
 
 
 # This function needs to print result of the special functions
@@ -43,9 +43,20 @@ def print_table(table, title_list):
 # @result: string or list or dictionary - result of the special function
 # @label: string - label of the result
 def print_result(result, label=""):
-    if label:
-        print(label + ": ", end="")
-    print(result)
+    if type(result) == type([]):
+        if label:
+            print(label)
+        for data in result:
+            print(data)
+    elif type(result) == type({}):
+        if label:
+            print(label)
+        for key in result:
+            print(key + ", " + result[key])
+    else:
+        if label:
+            print(label + ": ", end="")
+        print(result)
 
 
 # This function needs to generate outputs like this:
@@ -76,7 +87,8 @@ def print_menu(title, list_options, exit_message):
 def get_inputs(list_labels='', title=''):
     print(title)
     print("".join(list_labels))
-    return input()
+    inputs = input()
+    return inputs
 
 
 # This function needs to print an error message. (example: Error: @message)

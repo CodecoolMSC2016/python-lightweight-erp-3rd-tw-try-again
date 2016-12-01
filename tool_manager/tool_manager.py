@@ -27,11 +27,11 @@ def start_module():
     title_list = "<id> <name> <manufacturer> <purchase_date> <durability>"
     table = data_manager.get_table_from_file(r"tool_manager/tools.csv")
     while True:
-        handle_menu()   
+        handle_menu()
         inputs = ui.get_inputs(["Please enter a number: "], "")
         option = inputs[0]
         if option == "1":
-                show_table(table, title_list)
+            show_table(table, title_list)
         elif option == "2":
             add(table, title_list)
         elif option == "3":
@@ -49,13 +49,14 @@ def start_module():
         else:
             raise KeyError("There is no such option.")
 
+
 def handle_menu():
     options = ["Show Table",
                "Add",
                "Remove",
                "Update",
                "Get Available Tools",
-               "Get Average Durability",]
+               "Get Average Durability", ]
 
     ui.print_menu("Tool Manager", options, "Back To Main Menu")
 
@@ -63,7 +64,7 @@ def handle_menu():
 # print the default table of records from the file
 #
 # @table: list of lists
-def show_table(table,title_list):
+def show_table(table, title_list):
 
     ui.print_table(table, title_list)
 
@@ -117,8 +118,8 @@ def get_available_tools(table):
 
     for line in table:
         dur = line[4]
-        purc= line[3]
-        if 2016<=int(purc)+int(dur):
+        purc = line[3]
+        if 2016 <= int(purc) + int(dur):
             ui.print_result(line[1], "The item that didn't exceed it's durability' is: ")
 
 
@@ -128,12 +129,9 @@ def get_available_tools(table):
 # @table: list of lists
 def get_average_durability_by_manufacturers(table):
 
-    manuf_dict={}
+    manuf_dict = {}
     for line in table:
         if line[2] in manuf_dict:
-            manuf_dict[line[2]]+=int(line[4])
+            manuf_dict[line[2]] += int(line[4])
         else:
-            manuf_dict[line[2]]=int(line[4])
-    for 
-    average=dur_max / len(table)
-
+            manuf_dict[line[2]] = int(line[4])

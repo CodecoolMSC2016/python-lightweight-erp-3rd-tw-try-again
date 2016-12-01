@@ -25,28 +25,57 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 #
 def start_module():
 
-    # you code
+    title_str = "<id> <title> <manufacturer>  <price>  <in_stock>"
+    table = data_manager.get_table_from_file("store/games.csv")
+    while True:
+        handle_menu()
+        inputs = ui.get_inputs("Please enter a number: ", "")
+        option = inputs[0]
+        if option == "1":
+            show_table(table, title_str)
+        elif option == "2":
+            add(table, title_str)
+        elif option == "3":
+            id_ = ui.get_inputs("Enter a valid ID: ")
+            remove(table, id_)
+        elif option == "4":
+            id_ = ui.get_inputs("Enter a valid ID: ")
+            update(table, id_)
+        elif option == "5":
+            ui.print_result(":(")
+        elif option == "6":
+            ui.print_result(":(")
+        elif option == "0":
+            break
+        else:
+            raise KeyError("There is no such option.")
 
-    pass
+
+def handle_menu():
+    options = ["Show Table",
+               "Add to Table",
+               "Remove from Table",
+               "Update Table",
+               "Count by Manufacturer",
+               "Avarage by Manufacturer"]
+
+    ui.print_menu("Accounting", options, "Returning to Main Menu")
 
 
 # print the default table of records from the file
 #
 # @table: list of lists
-def show_table(table):
-
-    # your code
-
-    pass
+def show_table(table, title_str):
+    ui.print_table(table, title_str)
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
 #
 # @table: list of lists
-def add(table):
-
-    # your code
-
+def add(table, title_str):
+    result = ui.get_inputs("Enter the records to be added (seperated by space): ", title_str)
+    table.append((common.generate_random(table) + " " + result).split())
+    data_manager.write_table_to_file("store/games.csv", table)
     return table
 
 
@@ -55,9 +84,10 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
-
-    # your code
-
+    for line in table:
+        if line[0] == id_:
+            table.remove(line)
+    data_manager.write_table_to_file("store/games.csv", table)
     return table
 
 
@@ -67,9 +97,13 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
-
-    # your code
-
+    for line_index in range(len(table)):
+        if table[line_index][0] == id_:
+            new_datas = ui.get_inputs("Enter new data(separated by space): ").split()
+            table[line_index] = [id_]
+            for data in new_datas:
+                table[line_index].append(data)
+    data_manager.write_table_to_file("store/games.csv", table)
     return table
 
 

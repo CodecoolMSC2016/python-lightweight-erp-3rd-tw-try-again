@@ -27,7 +27,7 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 def start_module():
 
     title_str = "id month day year type amount"
-    table = data_manager.get_table_from_file(r"accounting/items.csv")
+    table = data_manager.get_table_from_file("accounting/items.csv")
     while True:
         handle_menu()
         inputs = ui.get_inputs("Please enter a number: ", "")
@@ -129,12 +129,17 @@ def avg_amount(table, year):
     result = 0
     year = str(year)
     amount_list = []
+
     for line in table:
         if line[3] == year:
             if line[4] == "out":
                 amount_list.append(int(line[5]) * -1)
             else:
                 amount_list.append(int(line[5]))
+    if not len(amount_list):
+        ui.print_result("Year not found.")
+        return
+
     for amount in amount_list:
         result += amount
     ui.print_result(result / len(amount_list), "Average profit in " + str(year))

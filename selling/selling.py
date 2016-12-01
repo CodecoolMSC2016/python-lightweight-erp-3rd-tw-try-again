@@ -33,7 +33,7 @@ def start_module():
         inputs = ui.get_inputs(["Please enter a number: "], "")
         option = inputs[0]
         if option == "1":
-                show_table(table, title_list)
+            show_table(table, title_list)
         elif option == "2":
             add(table, title_list)
         elif option == "3":
@@ -51,13 +51,14 @@ def start_module():
         else:
             raise KeyError("There is no such option.")
 
+
 def handle_menu():
     options = ["Show Table",
                "Add",
                "Remove",
                "Update",
                "Get Lowest Price Item",
-               "Items Sold Between",]
+               "Items Sold Between", ]
 
     ui.print_menu("Selling", options, "Back To Main Menu")
 
@@ -117,19 +118,18 @@ def update(table, id_):
 # if there are more than one with the lowest price, return the first of descending alphabetical order
 def get_lowest_price_item_id(table):
 
-    min=999999999999
+    min = 999999999999
     for line in range(len(table)):
-        if int(table[line][2])<min:
-            min=int(table[line][2])
+        if int(table[line][2]) < min:
+            min = int(table[line][2])
     for line in table:
         if int(line[2]) == min:
             ui.print_result(line[1], "The lowest price game is: ")
+            return line[0]
 
 
 # the question: Which items are sold between two given dates ? (from_date < birth_date < to_date)
 # return type: list of lists (the filtered table)
 def get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to):
-
-    # your code
 
     pass
