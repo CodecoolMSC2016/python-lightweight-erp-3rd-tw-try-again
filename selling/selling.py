@@ -26,27 +26,30 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # we need to reach the default and the special functions of this module from the module menu
 #
 def start_module():
-
-    inputs = ui.get_inputs(["Please enter a number: "], "")
-    option = inputs[0]
-    if option == "1":
-        show_table(table)
-    elif option == "2":
-        add(table)
-    elif option == "3":
-        remove(table, id_)
-    elif option == "4":
-        update(table, id_)
-    elif option == "5":
-        update(table, id_)
-    elif option == "6":
-        get_lowest_price_item_id(table)
-    elif option == "6":
-        get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to)
-    elif option == "0":
-        main.choose()
-    else:
-        raise KeyError("There is no such option.")
+    title_str = "<id> <month> <day> <year> <type> <amount>"
+    table = data_manager.get_table_from_file(r"selling/sellings.csv")
+    while True:
+        handle_menu()
+        inputs = ui.get_inputs(["Please enter a number: "], "")
+        option = inputs[0]
+        if option == "1":
+                show_table(table, title_str)
+        elif option == "2":
+            add(table, title_str)
+        elif option == "3":
+            id_ = ui.get_inputs("Enter a valid ID: ", "")
+            remove(table, id_)
+        elif option == "4":
+            id_ = ui.get_inputs("Enter a valid ID: ", "")
+            update(table, id_)
+        elif option == "5":
+            get_lowest_price_item_id(table)
+        elif option == "6":
+            get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to)
+        elif option == "0":
+            break
+        else:
+            raise KeyError("There is no such option.")
 
 def handle_menu():
     options = ["Show Table",
@@ -62,21 +65,18 @@ def handle_menu():
 # print the default table of records from the file
 #
 # @table: list of lists
-def show_table(table):
+def show_table(table, title_str):
 
-    from ui import print_table
-
-    return print_table
+    ui.print_table(table, title_str)
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
 #
 # @table: list of lists
-def add(table):
-
-    from ui import get_inputs
-    append.table(get_inputs)
-
+def add(table, title_str):
+    result = ui.get_inputs("Enter the records to be added (seperated by space): ", title_str)
+    table.append((common.generate_random(table) + " " + result).split())
+    data_manager.write_table_to_file("selling/sellings.csv", table)
     return table
 
 
@@ -85,9 +85,11 @@ def add(table):
 # @table: list of lists
 # @id_: string
 def remove(table, id_):
-
-    # your code
-
+    for line in table:
+        id_ = title_str[0]
+        if line[0] == id_:
+            table.remove(line)
+    data_manager.write_table_to_file("selling/sellings.csv", table)
     return table
 
 
@@ -97,9 +99,13 @@ def remove(table, id_):
 # @table: list of lists
 # @id_: string
 def update(table, id_):
-
-    # your code
-
+    for line_index in range(len(table)):
+        if table[line_index][0] == id_:
+            new_datas = ui.get_inputs("Enter new data(seperated by space): ").split()
+            table[line_index] = [id_]
+            for data in new_datas:
+                table[line_index].append(data)
+    data_manager.write_table_to_file("selling/sellings.csv", table)
     return table
 
 
@@ -111,9 +117,11 @@ def update(table, id_):
 # if there are more than one with the lowest price, return the first of descending alphabetical order
 def get_lowest_price_item_id(table):
 
-    # your code
-
-    pass
+    lowest = None
+    for line in table:
+        if int(line[2]) >= int(lowest[2]):
+            lowest.append(line)
+    ui.print_result(lowest[1], "The item with the lowest price is: ")
 
 
 # the question: Which items are sold between two given dates ? (from_date < birth_date < to_date)
