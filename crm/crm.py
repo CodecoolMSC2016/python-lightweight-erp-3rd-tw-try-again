@@ -115,30 +115,33 @@ def update(table, id_):
 # the question: What is the id of the customer with the longest name ?
 # return type: string (id) - if there are more than one longest name, return the first of descending alphabetical order
 def get_longest_name_id(table):
-    max_line = None
+    table = sorted(table, key=lambda nev: nev[1], reverse=False)
+    max = table[0]
     for line in table:
-        name = line[1]
-        max_name = max_line[1]
-        if len(name) > len(max_name):
-            max_line = line
-            #print(max_line[0])
-        elif len(name) == len(max_name):
-            abc = ['a','b','c','d','e','f','g','h','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-            for chars in name:
-                for letters in max_name:
-                    if chars[0] and letters[0] in abc:
+        if len(line[1]) > len(max[1]):
+            max = line
+    ui.print_result(max[0], "")
+    return max[0]
+        
+
+            
+
+            
                         
                     
             
-                        return line
+
     
 
 
 # the question: Which customers has subscribed to the newsletter?
 # return type: list of string (where string is like email+separator+name, separator=";")
 def get_subscribed_emails(table):
+    subscribed = []
     for line in table:
         if line[3] == "1":
+            subscribed.append(line[2] + ";" + line[1])
             ui.print_result(line[2], line[1])
+    return subscribed
         
 
